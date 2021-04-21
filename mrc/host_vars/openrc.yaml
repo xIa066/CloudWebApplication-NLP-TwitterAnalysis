@@ -1,0 +1,8 @@
+auth:
+  auth_url: https://keystone.rc.nectar.org.au:5000/v3/
+  username: olladapu@student.unimelb.edu.au
+  password: MzJmZWM4OTU4MTBhNmQ4
+  user_domain_id: default
+  project_domain_id: default
+  project_name: unimelb-comp90024-2021-grp-71
+  region_name: Melbourne

@@ -1,0 +1,92 @@
+#common vars
+availability_zone: melbourne-qh2-uom
+
+
+#volume
+
+volumes:
+  - vol_name: vm-01-data
+    vol_size: 40
+  - vol_name: vm-01-docker
+    vol_size: 10
+  - vol_name: vm-02-data
+    vol_size: 40
+  - vol_name: vm-02-docker
+    vol_size: 10
+  - vol_name: vm-03-data
+    vol_size: 40
+  - vol_name: vm-03-docker
+    vol_size: 10
+  - vol_name: vm-04-data
+    vol_size: 40
+  - vol_name: vm-04-docker
+    vol_size: 10
+  
+security_groups:
+  - name: administration
+    description: "Security group for remote access"
+  - name: couchdb_comm
+    description: "Security group for CouchDB communication"
+
+security_group_public: 
+  - name: administration
+    protocol: tcp
+    port_range_min: 8000
+    port_range_max: 8000
+    remote_ip_prefix: 0.0.0.0/0
+  - name: administration
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    remote_ip_prefix: 0.0.0.0/0
+  - name: administration
+    protocol: tcp
+    port_range_min: 80
+    port_range_max: 80
+    remote_ip_prefix: 0.0.0.0/0
+  - name: administration
+    protocol: tcp
+    port_range_min: 5984
+    port_range_max: 5984
+    remote_ip_prefix: 0.0.0.0/0
+
+
+
+security_group_private: 
+  - name: couchdb_comm
+    protocol: tcp
+    port_range_min: 9100
+    port_range_max: 9200
+    remote_group: couchdb_comm
+  - name: couchdb_comm
+    protocol: tcp
+    port_range_min: 5984
+    port_range_max: 5984
+    remote_group: couchdb_comm
+  - name: couchdb_comm
+    protocol: tcp
+    port_range_min: 4369
+    port_range_max: 4369
+    remote_group: couchdb_comm
+
+
+
+
+instances:
+  - name: vm_1
+    volumes: ['vm-01-data','vm-01-docker']
+  - name: vm_2
+    volumes: ['vm-02-data','vm-02-docker']
+  - name: vm_3
+    volumes: ['vm-03-data','vm-03-docker']
+  - name: vm_4
+    volumes: ['vm-04-data','vm-04-docker']
+
+instance_image: f8b79936-6616-4a22-b55d-0d0a1d27bceb
+instance_key_name: test2
+instance_flavor: uom.mse.1c4g
+
+
+
+
+
