@@ -10,19 +10,20 @@
   roles:
     - role: openstack-common
     - role: openstack-images
-    # - role: openstack-volume
-    # - role: openstack-security-group
-    # - role: openstack-instance
+    - role: openstack-volume
+    - role: openstack-security-group
+    - role: openstack-instance
     # - role: openstack-volume-snapshot
 
 # Install Docker and CouchDB
 - hosts: DataNodes
   vars_files:
     - host_vars/env.yaml
-    - host_vars/couchdb.yaml
+    - host_vars/couchdb_env.yaml
   gather_facts: true
   
   roles:
     - role: nodes-baseline
     - role: install-docker
-    # - role: 
+    - role: volume-mount
+    - role: install-couchdb

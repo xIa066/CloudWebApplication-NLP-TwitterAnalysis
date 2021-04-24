@@ -1,7 +1,7 @@
 - name: Uninstall old versions of docker
   become: yes
   apt:
-    name: ['docker']
+    name: ['docker', 'docker-engine', 'docker.io']
     state: absent
 
 # Install Docker dependencies
@@ -98,3 +98,5 @@
     name: docker
     state: restarted
   become: yes
+
+

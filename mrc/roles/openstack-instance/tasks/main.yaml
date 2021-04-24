@@ -32,4 +32,11 @@
     search_regex: OpenSSH
   loop: '{{os_instance.results}}'
   when: item.openstack is defined
-  
+
+# Add hosts to Ansible in-memory for future installation/configuration
+- name: Add host
+  add_host:
+    name: '{{ item.openstack.public_v4 }}'
+    groups: hosts_list
+  loop: '{{ os_instance.results }}'
+  when: item.openstack is defined
