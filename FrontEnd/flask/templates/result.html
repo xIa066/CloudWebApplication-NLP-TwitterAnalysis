@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+   <body>  <center> <br> <br>
+      <table border = 1>
+         {% for key, value in result.items() %}
+            <tr>
+               <th> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+         {% endfor %}
+      </table>
+     {% if error %}
+         <p><strong>Status:</strong> {{ error }}
+      {% endif %}
+
+    <p><a href="{{ url_for('add_hashtag') }}">Download data from Twitter</a> </p>
+    <br>
+    <p><a href="{{ url_for('upload_csv') }}">Upload local csv</a> </p>
+    <br>
+    <p><a href="{{ url_for('index') }}">Home</a> </p>
+         </center>
+   </body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+   <head>
+       <style>
+
+            h1 {
+              text-align: center;
+            }
+
+            h2 {
+              text-align: center;
+            }
+            * {
+              box-sizing: border-box;
+            }
+
+            /* Create two equal columns that floats next to each other */
+            .column {
+              text-align: center;
+              float: left;
+              width: 33.33%;
+              padding: 10px;
+              height: 200px; /* Should be removed. Only for demonstration */
+            }
+
+            /* Clear floats after the columns */
+            .row:after {
+              text-align: center;
+              content: "";
+              display: table;
+              clear: both;
+            }
+       </style>
+
+   </head>
+
+   <body>
+          <h1> Welcome to Political Trends & Sentiment <br>
+       Analysis of People in Australia</h1>
+        <div class="row">
+          <div class="column" style="background-color:#aaa;">
+            <h2>Analysis of 5 Year Data</h2>
+            <p><a href="{{ url_for('fvyr_html') }}">Click here</a> to view last 5 year trend </p>
+          </div>
+          <div class="column" style="background-color:#bbb;">
+            <h2>Analysis of Recent Data</h2>
+            <p><a href="{{ url_for('rece_html') }}">Click here</a> to view recent trend (City wise)</p>
+          </div>
+             <div class="column" style="background-color:#aaa;">
+            <h2>Set Twitter API</h2>
+            <p><a href="{{ url_for('api_cr') }}">Click here</a> to set twitter api credentials and hashtags</p>
+          </div>
+        </div>
+   </body>
+</html>
