@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import tweepy
 import sys
+import DB_insert as DB
+
 def api_connect(log):
     consumer_key = log['API_KEY']
     consumer_secret_key = log['API_SECRET_KEY']
@@ -49,7 +51,6 @@ def fun_neu_fetch(api, place_id, log):
         sys.exit(-1)
     else:
         for tag in list_hashtags:
-            print(tag)
             cursor = tweepy.Cursor(api.search, q= tag+" ; place:%s" % place_id,lang='en')
             results=[]
             for item in cursor.items():
@@ -57,8 +58,9 @@ def fun_neu_fetch(api, place_id, log):
 
             DataSet_mini = toDataFrame(results,tag)
             df_neutral= df_neutral.append(DataSet_mini)
-    df_neutral.to_csv("./static/neutral_tweet_extracted.csv",index=False)
-    return df_neutral
+            
+    # pushing data 
+    return df_neutral.to_json(orient='records')
 
 def fun_lab_fetch(api, place_id, log):
     list_hashtags = log['LABOR_HASHTAGS'].dropna()
@@ -77,8 +79,9 @@ def fun_lab_fetch(api, place_id, log):
 
             DataSet_mini = toDataFrame(results,tag)
             df_labor= df_labor.append(DataSet_mini)
-    df_labor.to_csv("./static/labor_tweet_extracted.csv",index=False)
-    return df_labor
+            
+    # pushing data 
+    return df_labor.to_json(orient='records')
 
 def fun_libl_fetch(api, place_id, log):
     list_hashtags = log['LIBERAL_HASHTAGS'].dropna()
@@ -96,6 +99,8 @@ def fun_libl_fetch(api, place_id, log):
                 results.append(item)
 
             DataSet_mini = toDataFrame(results,tag)
+            
             df_liberal= df_liberal.append(DataSet_mini)
-    df_liberal.to_csv("./static/liberal_tweet_extracted.csv",index=False)
-    return df_liberal
+            
+    # pushing data 
+    return df_liberal.to_json(orient='records')
