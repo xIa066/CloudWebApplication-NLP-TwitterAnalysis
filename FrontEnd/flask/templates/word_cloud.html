@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Word Clouds</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.3.0/material.blue_grey-red.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+</head>
+
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title" id="headerBarTitle">Word Clouds</span>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+            </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title" >Options</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="{{ url_for('display_map')}}">Map</a>
+                <a class="mdl-navigation__link" href="{{ url_for('graph')}}">Graphs</a>
+                <a class="mdl-navigation__link" href="{{ url_for('word_cloud')}}">Word Clouds</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <!-- content here -->
+        </main>
+    </div>
+</body>
+</html>
