@@ -17,8 +17,9 @@ def get_db(db_name,server):
         return db
     else:
         print('Database not found!')
+        
 server=connect_server('admin','admin')
-db=get_db('data1',server)
+db=get_db('data',server)
 
 # retrive views from db
 def get_view(view_name,db,to_group):
@@ -56,12 +57,10 @@ def graph():
 # for retrieving graph data
 @app.route('/graph_data/<view>')
 def fetch_graph_data(view):
-    if view == "votes":
-        # outfile = get_view(view, db, True)
-        return "votes"
-    elif view != "none":
-        outfile = get_view(view, db, True)
-        return outfile
+    if view != "none":
+        data = get_view(view, db, True)
+        # graph_html = create_graph(view)
+        return data
     else:
         return "none"
 
