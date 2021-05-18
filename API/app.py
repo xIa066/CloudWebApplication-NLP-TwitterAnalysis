@@ -92,7 +92,7 @@ def getLocation():
 
 @app.route('/textdoc',methods=['GET'])
 def getLocationWords():
-        try:
+    try:
         data = get_view('textdoc',db,False)
     except:
         server = connect_server()
