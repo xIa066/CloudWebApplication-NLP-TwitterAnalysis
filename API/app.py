@@ -97,7 +97,7 @@ def getTextdoc():
     except:
         server = connect_server()
         get_db(DATABASE_HISTORY, server)
-        data = get_view('location',db,False)
+        data = get_view('textdoc',db,False)
     return data
 
 
