@@ -91,15 +91,16 @@ def getLocation():
     return data
 
 @app.route('/textdoc',methods=['GET'])
-def getLocation():
+def getTextdoc():
     try:
         data = get_view('textdoc',db,False)
     except:
         server = connect_server()
         get_db(DATABASE_HISTORY, server)
-        data = get_view('textdoc',db,False)
+        data = get_view('location',db,False)
     return data
-    
+
+
 if __name__ == '__main__':
     #app.run(debug=True)                       # debug mode
     app.run(host='0.0.0.0', port=8000)        # deployment mode
