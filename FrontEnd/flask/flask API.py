@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[7]:
+# In[ ]:
 
 
 from flask import Flask
 import couchdb
 
 
-# In[8]:
+# In[ ]:
 
 
 # intialisation
@@ -55,16 +55,20 @@ def getNegativeScore():
 def getLocation():
     return get_view('location',db,False)
 
+@app.route('/textdoc',methods=['GET'])
+def getLocation():
+    return get_view('textdoc',db,False)
 
-# In[9]:
+
+# In[ ]:
 
 
 # configuration
 server=connect_server('admin','admin')
-db=get_db('data1',server)
+db=get_db('finaldata',server)
 
 
-# In[10]:
+# In[ ]:
 
 
 if __name__ == '__main__':
