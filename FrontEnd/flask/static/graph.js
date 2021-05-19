@@ -10,9 +10,9 @@ $("#graphOption").change(function (){
         dataType: "html",
         success: function(data) {
            if (view != "none") {
-                graph.innerHTML = data;
+               $("#graph").html(data);
            } else {
-
+                ;
            }
         }
     })

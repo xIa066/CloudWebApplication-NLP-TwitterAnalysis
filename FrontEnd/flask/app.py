@@ -1,33 +1,9 @@
-import couchdb
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template
+from functions import draw_graph, json_to_geojson, draw_wordcloud
 import json
 
 app = Flask(__name__)
 app.secret_key = 'random string'
-
-# connect to couchdb server
-def connect_server(user,password):
-    server = couchdb.Server("http://%s:%s@172.26.131.32:5984/" % (user,password))
-    return server
-
-# identify required database
-def get_db(db_name,server):
-    if db_name in server:
-        db = server[db_name]
-        return db
-    else:
-        print('Database not found!')
-        
-server=connect_server('admin','admin')
-db=get_db('data',server)
-
-# retrive views from db
-def get_view(view_name,db,to_group):
-    outfile = {}
-    for tweet in db.view(f'keyViews/{view_name}',group=to_group):
-        # print(tweet.key,tweet.value)
-        outfile[str(tweet.key)]=tweet.value
-    return outfile
 
 # home page
 @app.route('/')
@@ -42,12 +18,12 @@ def display_map():
 # for retrieving map data
 @app.route('/map_data/<map_type>')
 def fetch_map_data(map_type):
-    outfile = {}
-    if map_type == 'loc':
-        outfile = get_view('location', db, False)
-    elif map_type == 'sentiment':
-        pass
-    return outfile
+    data = {}
+    if map_type != "none":
+        # raw_data = get_view('location', db, False)
+        data = json_to_geojson(map_type)
+    
+    return data
 
 # graph page
 @app.route('/graph')
@@ -56,11 +32,12 @@ def graph():
 
 # for retrieving graph data
 @app.route('/graph_data/<view>')
-def fetch_graph_data(view):
+def fetch_graph_html(view):
     if view != "none":
-        data = get_view(view, db, True)
-        # graph_html = create_graph(view)
-        return data
+        # raw_data = get_view(view, db, True)
+        fig_html = draw_graph(view)
+
+        return fig_html
     else:
         return "none"
 
@@ -68,6 +45,12 @@ def fetch_graph_data(view):
 @app.route('/word_cloud')
 def word_cloud():
     return render_template('word_cloud.html')
+
+# drawing word clouds
+@app.route('/word_cloud_img/<category>')
+def generate_word_cloud(category):
+    response = draw_wordcloud(category)
+    return response
 
 if __name__ == "__main__":
     app.run()

@@ -15,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 
-<body onload="initMap();displayHeatMap();">
+<body>
     <div class="mdl-layout__container"> 
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <header class="mdl-layout__header">
@@ -29,17 +29,25 @@
 
                 <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="map_menu">
-                <li class="mdl-menu__item" onclick="displayHeatMap()">Heatmap</li>
-                <li class="mdl-menu__item" onclick="showSentiment()">Sentiment Scores</li>
+                <li class="mdl-menu__item">Heatmap</li>
                 </ul>
             </div>
             </header>
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title" >Options</span>
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="{{ url_for('display_map')}}">Map</a>
-                <a class="mdl-navigation__link" href="{{ url_for('graph')}}">Graphs</a>
-                <a class="mdl-navigation__link" href="{{ url_for('word_cloud')}}">Word Clouds</a>
+                <a class="mdl-navigation__link" href="{{url_for('index')}}">
+                    <i class="material-icons" role="presentation">home</i>
+                    Home</a>
+                <a class="mdl-navigation__link" href="{{ url_for('display_map')}}">
+                    <i class="material-icons" role="presentation">public</i>
+                    Map</a>
+                <a class="mdl-navigation__link" href="{{ url_for('graph')}}">
+                    <i class="material-icons" role="presentation">insights</i>
+                    Graphs</a>
+                <a class="mdl-navigation__link" href="{{ url_for('word_cloud')}}">
+                    <i class="material-icons" role="presentation">cloud</i>
+                    Word Clouds</a>
             </nav>
         </div>
         <main class="mdl-layout__content">
