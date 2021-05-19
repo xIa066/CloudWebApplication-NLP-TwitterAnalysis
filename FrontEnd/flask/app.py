@@ -17,6 +17,14 @@ def get_db(db_name,server):
         return db
     else:
         print('Database not found!')
+
+#remove a particular database
+def remove_db(db_name,server):
+    if db_name in server:
+        del server[db_name]
+        return f"Database {db_name} has been deleted sucessfully."
+    else:
+        print('Database not found!')
         
 server=connect_server('admin','admin')
 db=get_db('data',server)
