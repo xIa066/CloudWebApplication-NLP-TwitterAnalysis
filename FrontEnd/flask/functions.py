@@ -59,8 +59,11 @@ def draw_graph(view):
     fig = px.line(processed_data,
                     x = "Year",
                     y = "Score",
+                    facet_col = "City",
                     color = "City",
-                    title = view + " Sentiment Score by city over time")
+                    facet_col_wrap = 2,
+                    title = view + " Sentiment Score by city over time",
+                    height = 1000)
     fig.update_yaxes(title_text = "Sentiment Score")
 
     fig_html = to_html(fig,

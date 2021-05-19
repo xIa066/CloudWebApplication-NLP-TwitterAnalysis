@@ -35,21 +35,6 @@ function loadMap(mapData) {
         "type": "heatmap",
         "source": "tweetLocations",
         "paint": {
-            // 'heatmap-color': [
-            //     'interpolate',
-            //     ['linear'],
-            //     ['heatmap-density'],
-            //     0,
-            //     'rgba(255, 255, 255, 0)',
-            //     0.25,
-            //     'rgb(226,227,251)',
-            //     0.5,
-            //     'rgb(187,202,249)',
-            //     0.75,
-            //     'rgb(134,180,246)',
-            //     1,
-            //     'rgb(29, 161, 242)'
-            // ],
             'heatmap-radius': [
                 'interpolate',
                 ['linear'],
