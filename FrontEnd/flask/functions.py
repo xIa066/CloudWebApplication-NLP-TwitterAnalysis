@@ -81,7 +81,10 @@ def location_geojson():
 
     for k, v in raw_data.items():
         # need to add properties.id and geometry.coordinates
-        coords = eval(v)
+        try:
+            coords = eval(v)
+        except:
+            continue
 
         if coords[0] < 113.33 or coords[0] > 153.57:
             continue

@@ -19,7 +19,7 @@ map.on('load', function() {
                 map.addSource(
                     "tweetLocations",{
                         "type": "geojson",
-                        "data": mapData
+                        "data": data
                     });
                 heatmap(data);
                 sessionStorage.setItem('locationData', JSON.stringify(data));
@@ -31,7 +31,7 @@ map.on('load', function() {
     }
 });
 
-function heatmap(mapData) {
+function heatmap() {
     map.addLayer({
         "id": "tweetHeatmap",
         "type": "heatmap",
