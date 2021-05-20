@@ -29,6 +29,7 @@ def get_db(db_name,server):
 # configuration
 server=connect_server()
 db=get_db(DATABASE_HISTORY,server)
+db1=get_db(DATABASE_AURIN)
         
 # retrive views from db
 def get_view(view_name,db,toGroup):
@@ -98,6 +99,16 @@ def getTextdoc():
         server = connect_server()
         get_db(DATABASE_HISTORY, server)
         data = get_view('textdoc',db,False)
+    return data
+
+@app.route('/aurin',methods=['GET'])
+def getAurin():
+    try:
+        data = get_view('aurin',db1,False)
+    except:
+        server = connect_server()
+        get_db(DATABASE_AURIN, server)
+        data = get_view('aurin',db1,False)
     return data
 
 
