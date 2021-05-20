@@ -2,7 +2,7 @@
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiamFtZXNzdW4wNCIsImEiOiJja283M2JvbTcxcmEwMnFtYjV6cHpyeG80In0.nsVmoAcXDwTlLA5dPlwlfA';
 
-var map = map = new mapboxgl.Map({
+var map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/mapbox/streets-v11', // style URL
     center: [134.866944, -24.994167], // starting position [lng, lat]
@@ -10,17 +10,20 @@ var map = map = new mapboxgl.Map({
     });
 
 map.on('load', function() {
-    let locationData;
-    
-    $.ajax({
-        url: "/map_data/location",
-        type: "GET",
-        dataType: "JSON",
-        success: function(data){
-            locationData = data;
-            loadMap(locationData);
-        }
-    })
+    if (!sessionStorage.getItem('locationData')) {
+        $.ajax({
+            url: "/map_data/location",
+            type: "GET",
+            dataType: "JSON",
+            success: function(data){
+                loadMap(data);
+                sessionStorage.setItem('locationData', JSON.stringify(data));
+            }
+        })
+    } else {
+        let locationData = JSON.parse(sessionStorage.getItem('locationData'));
+        loadMap(locationData);
+    }
 })
 
 function loadMap(mapData) {

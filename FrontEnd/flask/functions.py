@@ -64,7 +64,7 @@ def draw_graph(view):
                     facet_col_wrap = 2,
                     title = view + " Sentiment Score by city over time",
                     height = 1000)
-    fig.update_yaxes(title_text = "Sentiment Score")
+    fig.update_yaxes(title_text = "Average Sentiment Score")
 
     fig_html = to_html(fig,
                         include_plotlyjs = False,
