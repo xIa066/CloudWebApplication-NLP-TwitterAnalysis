@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from functions import draw_graph, json_to_geojson, draw_wordcloud
+from functions import draw_graph, location_geojson, vote_geojson, draw_wordcloud
 import json
 
 app = Flask(__name__)
@@ -19,9 +19,11 @@ def display_map():
 @app.route('/map_data/<map_type>')
 def fetch_map_data(map_type):
     data = {}
-    if map_type != "none":
+    if map_type == "location":
         # raw_data = get_view('location', db, False)
-        data = json_to_geojson(map_type)
+        data = location_geojson()
+    elif map_type.contains('vote'):
+        data = vote_geojson()
     
     return data
 

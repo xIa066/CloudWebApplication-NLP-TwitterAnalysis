@@ -16,23 +16,22 @@ map.on('load', function() {
             type: "GET",
             dataType: "JSON",
             success: function(data){
-                loadMap(data);
+                map.addSource(
+                    "tweetLocations",{
+                        "type": "geojson",
+                        "data": mapData
+                    });
+                heatmap(data);
                 sessionStorage.setItem('locationData', JSON.stringify(data));
             }
         })
     } else {
         let locationData = JSON.parse(sessionStorage.getItem('locationData'));
-        loadMap(locationData);
+        heatmap(locationData);
     }
-})
+});
 
-function loadMap(mapData) {
-    map.addSource(
-        "tweetLocations",{
-            "type": "geojson",
-            "data": mapData
-        });
-
+function heatmap(mapData) {
     map.addLayer({
         "id": "tweetHeatmap",
         "type": "heatmap",
@@ -46,4 +45,26 @@ function loadMap(mapData) {
             ]
         }
     });
+}
+
+function showVoteCount(party) {
+    let voteData;
+
+    if (!localStorage.getItem("voteData")) {
+        $.ajax({
+            url: "/aurin",
+            type: "GET",
+            dataType: "JSON",
+            success: function(data){
+                voteData = data;
+                localStorage.setItem("voteData", JSON.stringify(data));
+            }
+        })
+    } else {
+        voteData = JSON.parse(localStorage.getItem("voteData"));
+    }
+
+    
+
+    
 }

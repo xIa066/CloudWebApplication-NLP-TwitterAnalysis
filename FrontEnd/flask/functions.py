@@ -72,9 +72,9 @@ def draw_graph(view):
     return fig_html
 
 ####### map drawing functions
-# converts json with id and coords to geojson
-def json_to_geojson(view):
-    get_data = requests.get(URL + view)
+# converts json with id and coords to geojson for tweet locs
+def location_geojson():
+    get_data = requests.get(URL + 'location')
     raw_data = json.loads(get_data.text)
 
     data = {"type": "FeatureCollection", "features" :[]}
@@ -98,6 +98,31 @@ def json_to_geojson(view):
         data['features'].append(temp_feature)
 
     return data
+
+# converts json to geojson for aurin data
+def vote_geojson():
+    get_data = requests.get(URL + 'aurin')
+    raw_data = json.loads(get_data.text)
+
+    data = {"type": "FeatureCollection", "features":[]}
+
+    for k, v in raw_data.items():
+        temp_feature = {"type": "Feature", 
+                        "geometry": {
+                            "type": "Point"
+                        }}
+
+        coords = [float(v['Longitude']), float(v['Latitude'])]
+        lib = float(v['Liberal Party']) + float(v['Conservative National Party'])
+        alp = float(v['Labor Party'])
+        grn = float(v['Greens Party'])
+
+        temp_feature['properties'] = {'id': v['Division Name'], 'ALP': alp, 'LIB': lib, 'GRN': grn}
+        temp_feature['geometry']['coordinates'] = coords
+        data['features'].append(temp_feature)
+
+    return data
+
 
 ###### wordcloud functions
 def fetch_tweets(category):
@@ -138,4 +163,4 @@ def draw_wordcloud(category):
     return category
 
 if __name__ == '__main__':
-    draw_wordcloud('city')
+    data = vote_geojson()
