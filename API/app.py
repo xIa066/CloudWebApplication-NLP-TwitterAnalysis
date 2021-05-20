@@ -29,7 +29,7 @@ def get_db(db_name,server):
 # configuration
 server=connect_server()
 db=get_db(DATABASE_HISTORY,server)
-db1=get_db(DATABASE_AURIN)
+db1=get_db(DATABASE_AURIN,server)
         
 # retrive views from db
 def get_view(view_name,db,toGroup):
