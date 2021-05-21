@@ -1,8 +1,5 @@
 from db_insert import *
 import nltk
-from nltk.corpus import stopwords
-nltk.download('stopwords')
-nltk.download('wordnet')
 from twitter import *
 from joiningAurinTwitter import *
 import time
