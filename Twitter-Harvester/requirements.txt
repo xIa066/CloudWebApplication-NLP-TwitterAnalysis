@@ -1,14 +1,10 @@
 pandas
 numpy
 couchdb
-warnings
 tweepy
-sys
 nltk
 stopwords
-nltk.corpus
 typing
-re
-SentimentIntensityAnalyzer
+regex
 vaderSentiment
-json
+json2
