@@ -13,8 +13,7 @@ import re
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from aurin import *
 from twitter_credentials import *
-nltk.download('stopwords')
-nltk.download('wordnet')
+
 #Twitter Account Setup
 def api_connect():
     consumer_key = API_KEY
