@@ -84,7 +84,7 @@ def location_geojson():
         try:
             coords = eval(v)
         except:
-            continue
+            coords = v
 
         if coords[0] < 113.33 or coords[0] > 153.57:
             continue
@@ -115,12 +115,9 @@ def vote_geojson():
                             "type": "Point"
                         }}
 
-        coords = [float(v['Longitude']), float(v['Latitude'])]
-        lib = float(v['Liberal Party']) + float(v['Conservative National Party'])
-        alp = float(v['Labor Party'])
-        grn = float(v['Greens Party'])
+        coords = [v['lng'], v['lat']]
 
-        temp_feature['properties'] = {'id': v['Division Name'], 'ALP': alp, 'LIB': lib, 'GRN': grn}
+        temp_feature['properties'] = {'id': k, 'ALP': v['ALP'], 'LIB': v['LIB'], 'GRN': v['GRN']}
         temp_feature['geometry']['coordinates'] = coords
         data['features'].append(temp_feature)
 

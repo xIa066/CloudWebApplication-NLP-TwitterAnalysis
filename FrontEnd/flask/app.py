@@ -20,9 +20,8 @@ def display_map():
 def fetch_map_data(map_type):
     data = {}
     if map_type == "location":
-        # raw_data = get_view('location', db, False)
         data = location_geojson()
-    elif map_type.contains('vote'):
+    elif map_type == 'vote':
         data = vote_geojson()
     
     return data
@@ -36,7 +35,6 @@ def graph():
 @app.route('/graph_data/<view>')
 def fetch_graph_html(view):
     if view != "none":
-        # raw_data = get_view(view, db, True)
         fig_html = draw_graph(view)
 
         return fig_html

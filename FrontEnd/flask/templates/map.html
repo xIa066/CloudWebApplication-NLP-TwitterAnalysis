@@ -22,22 +22,10 @@
             <div class="mdl-layout__header-row">
                 <span class="mdl-layout-title" id="headerBarTitle">Map</span>
                 <div class="mdl-layout-spacer"></div>
-                <button id="map_menu"
-                class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">more_vert</i>
-                </button>
-
-                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                for="map_menu">
-                <li class="mdl-menu__item" onclick="heatmap()">Tweet Heatmap</li>
-                <li class="mdl-menu__item" onclick="showVoteCount('ALP')">Labor Vote Count</li>
-                <li class="mdl-menu__item" onclick="showVoteCount('LIB')">LIB/NAT Coalition Vote Count</li>
-                <li class="mdl-menu__item" onclick="showVoteCount('GRN')">Greens Vote Count</li>
-                </ul>
             </div>
             </header>
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title" >Options</span>
+            <span class="mdl-layout-title">Options</span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="{{url_for('index')}}">
                     <i class="material-icons" role="presentation">home</i>
@@ -52,6 +40,41 @@
                     <i class="material-icons" role="presentation">cloud</i>
                     Word Clouds</a>
             </nav>
+            <ul class="mdl-list">
+                <span class='mdl-layout-title', style="text-align: center;">Map options</span>
+                <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">Heatmap</span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-1">
+                        <input type="checkbox" id='list-switch-1' class="mdl-switch__input" onclick="toggleHeatmap(this)" checked/>
+                      </label>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">ALP Vote Count</span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-2">
+                        <input type="checkbox" id='list-switch-2' class="mdl-switch__input" onclick="toggleVoteCount(this, 'ALP')"/>
+                      </label>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">LIB Vote Count</span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-3">
+                        <input type="checkbox" id='list-switch-3' class="mdl-switch__input" onclick="toggleVoteCount(this, 'LIB')"/>
+                      </label>
+                    </span>
+                  </li>
+                  <li class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">GRN Vote Count</span>
+                    <span class="mdl-list__item-secondary-action">
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="list-switch-4">
+                        <input type="checkbox" id='list-switch-4' class="mdl-switch__input" onclick="toggleVoteCount(this, 'GRN')"/>
+                      </label>
+                    </span>
+                  </li>
+            </ul>
         </div>
         <main class="mdl-layout__content">
             <div id='map'></div>
