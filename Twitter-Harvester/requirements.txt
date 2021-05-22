@@ -1,0 +1,11 @@
+pandas
+numpy
+couchdb
+tweepy
+nltk
+stopwords
+typing
+regex
+vaderSentiment
+json2
+time2relax
