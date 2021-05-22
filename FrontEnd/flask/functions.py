@@ -6,6 +6,7 @@ import requests
 from plotly.io import to_html
 import plotly.express as px
 from wordcloud import WordCloud
+from datetime import datetime, timedelta
 
 URL = 'http://172.26.134.11:8000/'
 cities = set(['melbourne', 'sydney', 'brisbane', 'canberra', 'perth', 'adelaide'])
@@ -36,7 +37,7 @@ def process_graph_data(view):
     get_data = requests.get(URL + view)
     raw_data = json.loads(get_data.text)
 
-    years = list(range(2010,2020))
+    years = list(range(2010,2022))
 
     processed_data = pd.DataFrame(columns = ['Year', 'City', 'Score'])
     
@@ -146,14 +147,16 @@ def fetch_tweets(category):
 
 # draw graph for wordclouds
 def draw_wordcloud(category):
-    data = fetch_tweets(category)
+    requires_update = check_update()
 
-    if category == 'all':
+    if requires_update:
+        data = fetch_tweets(category)
+
         wordcloud = WordCloud(width = 1600, height = 800)\
                     .generate(' '.join(data['text'].astype(str)))
 
-        wordcloud.to_file('img/all.png')
-    elif category == 'city':
+        wordcloud.to_file('static/images/all.png')
+
         for city in cities:
             temp_data = data[data['location'].str.lower().str.contains(city)]
             wordcloud = WordCloud(width = 1600, height = 800)\
@@ -162,5 +165,26 @@ def draw_wordcloud(category):
     
     return category
 
+# check when wordcloud was last updated
+def check_update():
+    try:
+        f = open('last_update.txt')
+        last_update = datetime.fromisoformat(f.readline())
+
+        if datetime.now() - last_update > timedelta(days=15):
+            f.close()
+            f = open('last_update.txt', 'w')
+            f.write(str(datetime.now()))
+            f.close()
+            return True
+        else:
+            return False
+            
+    except FileNotFoundError:
+        f = open('last_update.txt', 'w')
+        f.write(str(datetime.now()))
+        f.close()
+        return False
+
 if __name__ == '__main__':
-    data = vote_geojson()
+    draw_wordcloud('none')
