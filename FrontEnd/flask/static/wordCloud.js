@@ -1,3 +1,4 @@
+const defaultMessage = '<span style="padding-left: 1%;">This page shows word clouds for either the Tweets in particular cities or all Tweets in the database. Please choose an option from the menu above to view word clouds.</span>';
 var imageArea = document.getElementById("wordclouds");
 var allHTML = '<img id="allTweets" src="../static/images/all.png" alt="Word cloud for all Tweets">';
 var cityHTML = '<div class="row"><div class="column"><h4>Melbourne</h4><img src="static/images/melbourne.png"></div><div class="column">    <h4>Sydney</h4>    <img src="static/images/sydney.png"></div><div class="column">    <h4>Canberra</h4>    <img src="static/images/canberra.png"></div></div><div class="row"><div class="column">    <h4>Brisbane</h4>    <img src="static/images/brisbane.png"></div><div class="column"><h4>Perth</h4><img src="static/images/perth.png"></div><div class="column"><h4>Adelaide</h4><img src="static/images/adelaide.png"></div></div>';
@@ -10,20 +11,25 @@ $('#wordCloudOption').change(function () {
         $("#wordclouds").html(allHTML);
     } else if (option == "city") {
         $("#wordclouds").html(cityHTML);
+    } else {
+        $("#wordclouds").html(defaultMessage);
     }
 
-    // $.ajax({
-    //     url: '/word_cloud_img/' + option,
-    //     type: "GET",
-    //     dataType: "text",
-    //     success: function(data) {
-    //         if (data == "all") {
-    //             $("#wordclouds").html(allHTML);
-    //         } else if (data == "city") {
-    //             $("#wordclouds").html(cityHTML);
-    //         } else {
-    //             ;
-    //         }
-    //     }
-    // })
+    $.ajax({
+        url: '/word_cloud_img/' + option,
+        type: "GET",
+        dataType: "text",
+        success: function(data) {
+            if (data == "all") {
+                $("#wordclouds").html(allHTML);
+            } else if (data == "city") {
+                $("#wordclouds").html(cityHTML);
+            } else {
+                ;
+            }
+        },
+        error: function(jqXHR, error) {
+            ;
+        }
+    })
 })

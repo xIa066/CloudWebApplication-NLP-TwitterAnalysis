@@ -36,7 +36,7 @@ const heatmapLayer = {
     }
 };
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiamFtZXNzdW4wNCIsImEiOiJja283M2JvbTcxcmEwMnFtYjV6cHpyeG80In0.nsVmoAcXDwTlLA5dPlwlfA';
+mapboxgl.accessToken = 'pk.eyJ1IjoiamFtZXNzdW4wNCIsImEiOiJja3AwcGNqNmsxNTNmMnVsZDR6dzJvZzA3In0.6nGfgpPncueBmE0XXinTbg';
 
 var map = new mapboxgl.Map({
     container: 'map', // container ID
@@ -60,7 +60,11 @@ map.on('load', function() {
                     });
                 sessionStorage.setItem('locationData', JSON.stringify(data));
                 toggleHeatmap('default');
+            },
+            error: function(jqXHR, error) {
+                alert("Tweet location data could not be loaded.");
             }
+            
         })
     } else {
         let locationData = JSON.parse(sessionStorage.getItem('locationData'));
@@ -85,6 +89,9 @@ map.on('load', function() {
                         "data": data
                     });
                 localStorage.setItem('voteData', JSON.stringify(data));
+            },
+            error: function(jqXHR, error) {
+                alert("Vot data could not be loaded.")
             }
         })
     } else {

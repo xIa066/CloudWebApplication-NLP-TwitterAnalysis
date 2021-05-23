@@ -1,3 +1,4 @@
+const defaultMessage = '<span style="padding-left: 1%;">This page shows the average sentiment score of Tweets originating from particular cities in Australia over the past decade. Please choose an option from the menu above to view a graph.</span>';
 let graph = document.getElementById("graph");
 
 $("#graphOption").change(function (){
@@ -12,8 +13,11 @@ $("#graphOption").change(function (){
            if (view != "none") {
                $("#graph").html(data);
            } else {
-                ;
+                $("#graph").html(defaultMessage);
            }
+        },
+        error: function(jqXHR, error) {
+            alert("Sentiment score data could not be loaded.")
         }
     })
 })
