@@ -7,12 +7,13 @@
     update_cache: yes
   when: ansible_distribution=="Ubuntu"
 
+#update pip to latest
 - name: Update pip
   pip:
     name: ['pip']
     state: latest
 
-
+#install openstack
 - name: Install openstacksdk
   pip:
     name: ['openstacksdk==0.52']

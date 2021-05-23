@@ -1,0 +1,60 @@
+- name: Clone the code repository into home directory
+  git:
+    repo: "https://github.com/olladapunaresh/Assignment-2_cluster_and_cloud_computing.git"
+    dest: ~/Assignment-2_cluster_and_cloud_computing
+  environment: "{{ proxy_env }}"
+  become: true
+
+# Create Docker config directory
+- name: Make sure that Docker config directory exists
+  become: yes
+  file:
+    path: '~/.docker'
+    state: 'directory'
+
+# Set Docker proxy for University of Melbourne Research Cloud
+- name: Ensure Docker client proxy settings are present on the server
+  become: yes
+  copy:
+    content: "{{ docker_proxy_settings }}"
+    dest: ~/.docker/config.json
+
+# Build Docker image for front end 
+- name: Build an image and push it to local repo
+  docker_image:
+    build:
+      path: '~/Assignment-2_cluster_and_cloud_computing/FrontEnd/flask'
+      pull: yes
+    name: cloud-assignment-2/front-end
+    tag: latest
+    source: build
+  become: yes
+
+
+
+# Stop existing Docker containers for front-end and remove it
+- name: Stop front end Docker container
+  become: yes
+  docker_container:
+    name: front-end
+    state: absent
+
+
+# Create new docker container for front-end and start container
+- name: Create and deploy front-end Docker container
+  become: yes
+  docker_container:
+    name: front-end
+    image: cloud-assignment-2/front-end
+    ports:
+      - 80:80
+    state: started
+    pull: false
+    recreate: true
+
+# Create New replicas of the couchdb conenctor to scale up the instance
+- name: "Create new service to create replicas "
+  shell: 'sudo docker service create --name front_end_replicator --replicas=5 cloud-assignment-2/front-end:latest'
+  register: running_replicas
+  changed_when: false
+

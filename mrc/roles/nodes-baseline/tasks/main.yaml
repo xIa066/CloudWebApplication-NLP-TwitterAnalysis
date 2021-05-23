@@ -13,7 +13,7 @@
     update_cache: yes
   environment: "{{ proxy_env }}"
 
-
+#update pip to latest
 - name: Update pip
   tags: always
   become: yes

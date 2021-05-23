@@ -1,7 +1,5 @@
 #Create an instance on NeCTAR
 
-
-
 - name: Create an Instance
   os_server: 
     name: '{{item.name}}'

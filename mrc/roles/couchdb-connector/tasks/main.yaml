@@ -1,0 +1,60 @@
+- name: Clone the code repository into home directory
+  git:
+    repo: "https://github.com/olladapunaresh/Assignment-2_cluster_and_cloud_computing.git"
+    dest: ~/Assignment-2_cluster_and_cloud_computing
+  environment: "{{ proxy_env }}"
+  become: true
+
+# Create Docker config directory
+- name: Make sure that Docker config directory exists
+  become: yes
+  file:
+    path: '~/.docker'
+    state: 'directory'
+
+# Set Docker proxy for University of Melbourne Research Cloud
+- name: Ensure Docker client proxy settings are present on the server
+  become: yes
+  copy:
+    content: "{{ docker_proxy_settings }}"
+    dest: ~/.docker/config.json
+
+# Build Docker image for Flask API of couchdb connector
+- name: Build an image and push it to local repo
+  docker_image:
+    build:
+      path: '~/Assignment-2_cluster_and_cloud_computing/API/'
+      pull: yes
+    name: cloud-assignment-2/couchdb-connector
+    tag: latest
+    source: build
+  become: yes
+
+
+
+# Stop existing Docker containers for couchdb-connector and remove it
+- name: Stop couchdb connector Docker container
+  become: yes
+  docker_container:
+    name: couchdb-connector
+    state: absent
+
+
+# Create new docker container for couchdb connector and start container
+- name: Create and couchdb-connector Docker container
+  become: yes
+  docker_container:
+    name: couchdb-connector
+    image: cloud-assignment-2/couchdb-connector
+    ports:
+      - 8000:8000
+    state: started
+    pull: false
+    recreate: true
+
+#Create New replicas of the couchdb conenctor to scale up the instance
+- name: "Create new service to create replicas "
+  shell: 'sudo docker service create --name couch_replicator --replicas=5 cloud-assignment-2/couchdb-connector:latest'
+  register: running_replicas
+  changed_when: false
+
