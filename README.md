@@ -5,7 +5,7 @@ The system can be accessed via the following URL:
 
 **Web App:** 
 
-[Environmental Sustainability Tweet Analysis](http://172.26.134.11/) (requires active connection Unimelb VPN)
+[Analysis of Political Tweets in Australia](http://172.26.134.11/) (requires active connection Unimelb VPN)
 
 
 
