@@ -39,6 +39,7 @@ This project deploys a web application that harvests live tweets and generates i
 
 
 For further information, please refer to the project report attached to this submission.
+https://github.com/xIa066/CloudWebApplication-NLP-TwitterAnalysis/blob/prod/report.pdf
 
 ## Software Stack
 ![Screen Shot 2022-01-11 at 12 58 48 pm](https://user-images.githubusercontent.com/37262666/148870186-eac02730-0bea-45c1-a927-8843b900a50f.png)
