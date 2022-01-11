@@ -4,7 +4,7 @@ This repository contains the source code for assignment 2 of the COMP90024 Clust
 The system can be accessed via the following URL: 
 
 ### Overview
-This project deploys a web application that harvests live tweets and generates interpretable visualizations from the live tweets data. This web application is deployed in a private cloud service (Melbourne Research Cloud). We use the Ansible playbook to automate the setup process. At the same time, we use Docker containers technology on top of the cloud virtualization.
+This project deploys a web application that harvests live tweets and generates interpretable visualizations from the live tweets data. This web application is deployed in a private cloud service (Melbourne Research Cloud). We use the Ansible playbook to automate the setup process. At the same time, we use Docker containers technology on the virtual machines.
 
 
 **Web App:** 
